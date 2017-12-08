@@ -18,4 +18,4 @@ coreos-workers
 [coreos-nodes:vars]
 ansible_ssh_user=core
 ansible_python_interpreter="/opt/python/bin/python"
-priv_if=enp0s8
+priv_if=en0

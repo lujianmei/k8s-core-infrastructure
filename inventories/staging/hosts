@@ -19,3 +19,14 @@ coreos-workers
 ansible_ssh_user=core
 ansible_python_interpreter="/opt/python/bin/python"
 priv_if=enp0s8
+
+
+[coreos]
+coreos-01
+coreos-02
+coreos-03
+
+[coreos:vars]
+coreos_ansible_role_path: "{{playbook_dir}}"
+ansible_ssh_user: core
+ansible_python_interpreter: "/opt/python/bin/python"
