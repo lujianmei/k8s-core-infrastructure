@@ -7,3 +7,12 @@
 [submodule "roles/lujianmei.coreos-ansible"]
 	path = roles/lujianmei.coreos-ansible
 	url = https://github.com/lujianmei/ansible-coreos-ansible
+[submodule "roles/lu.coreos-kubernetes"]
+	path = roles/lu.coreos-kubernetes
+	url = https://github.com/lujianmei/ansible-coreos-kubernetes
+[submodule "roles/lu.coreos-container-linux"]
+	path = roles/lu.coreos-container-linux
+	url = https://github.com/lujianmei/ansible-coreos-container-linux
+[submodule "roles/lu.coreos-ansible"]
+	path = roles/lu.coreos-ansible
+	url = https://github.com/lujianmei/ansible-coreos-ansible
