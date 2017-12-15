@@ -1,2 +1,6 @@
 # from github
-- src: https://github.com/lujianmei/ansible-coreos-container-linux
+# - src: https://github.com/lujianmei/ansible-coreos-container-linux
+
+# from galaxy
+- src: deimosfr.coreos-container-linux
+- src: deimosfr.coreos-ansible

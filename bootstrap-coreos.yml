@@ -1,19 +1,20 @@
 ---
 
 - name: coreos-ansible pypy
-  hosts: localhost
+  hosts: local
   gather_facts: False
   tasks:
-    - include: roles/lu.coreos-ansible/tasks/ansible_prerequisites.yml
+    - include: "{{playbook_dir}}/roles/deimosfr.coreos-ansible/tasks/ansible_prerequisites.yml"
   vars:
     ansible_python_interpreter: "/usr/bin/python"
-    coreos_ansible_role_path: "{{playbook_dir}}/roles/lu.coreos-container-linux"
+    ansible_python_interpreter_local: "/usr/bin/python"
+    coreos_role_path: "{{playbook_dir}}/roles"
 
 - name: coreos image offline mode
-  hosts: localhost
+  hosts: local
   gather_facts: False
   tasks:
-    - include: roles/lu.coreos-container-linux/tasks/coreos_offline_image.yml
+    - include: "{{playbook_dir}}/roles/deimosfr.coreos-container-linux/tasks/coreos_offline_image.yml"
       when: coreos_image_offline
   vars:
     ansible_python_interpreter: "/usr/bin/python"
@@ -29,9 +30,9 @@
   become: yes
   gather_facts: False
   roles:
-    - lu.coreos-container-linux
+    - deimosfr.coreos-ansible
   vars:
-    coreos_ansible_role_path: "{{playbook_dir}}/roles/lu.coreos-container-linux"
+    coreos_ansible_role_path: "{{playbook_dir}}/roles/deimosfr.coreos-ansible"
 
 # First deploy masters to ensure cluster will be ready before workers
 - name: coreos-bootstrap
@@ -39,17 +40,17 @@
   user: core
   become: yes
   roles:
-    - lu.coreos-container-linux
+    - deimosfr.coreos-container-linux
   vars:
-    coreos_image_base_url: "http://222.2.1.152:8000/coreos_images"
-    coreos_ansible_role_path: "{{playbook_dir}}/roles/lu.coreos-container-linux"
+    coreos_image_base_url: "http://localhost:8000/coreos_images"
+    coreos_ansible_role_path: "{{playbook_dir}}/roles/deimosfr.coreos-ansible"
 
 - name: coreos-bootstrap
   hosts: coreos-workers
   user: core
   become: yes
   roles:
-    - lu.coreos-container-linux
+    - deimosfr.coreos-container-linux
   vars:
-    coreos_image_base_url: "http://222.2.1.152:8000/coreos_images"
-    coreos_ansible_role_path: "{{playbook_dir}}/roles/lu.coreos-container-linux"
+    coreos_image_base_url: "http://localhost:8000/coreos_images"
+    coreos_ansible_role_path: "{{playbook_dir}}/roles/deimosfr.coreos-ansible"

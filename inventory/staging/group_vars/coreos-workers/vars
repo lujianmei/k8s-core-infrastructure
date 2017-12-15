@@ -1,3 +1,12 @@
+coreos_ansible_role_path: "{{playbook_dir}}"
+coreos_ansible_install_pypy: true
+ansible_ssh_user: core
+ansible_python_interpreter: "/opt/python/bin/python"
+ansible_python_interpreter_local: "/usr/bin/python"
+python_version: 2
+pypy_version: 5.8.0
+
+
 ## CoreOS
 
 # Choose CoreOS channel between stable, beta or alpha channels
@@ -24,7 +33,7 @@ coreos_image_base_url: "https://{{coreos_channel}}.release.core-os.net/amd64-usr
 
 # Set role path for local storage
 # coreos_role_path: "~/Linux/core-template"
-coreos_role_path: "{{playbook_dir}}/../../lu.coreos-container-linux"
+coreos_role_path: "{{playbook_dir}}/roles/deimosfr.coreos-container-linux"
 
 # Define your public interface and IP
 coreos_public_ip: "{{ansible_default_ipv4.address}}"
@@ -259,4 +268,4 @@ coreos_cloudinit:
   users:
     - name: 'core'
       ssh-authorized-keys:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQyvQXPNzFXhBS6iaMQkxNcNEhK3ohzQC0s5U+hV39UbOwB6575MO1/N6XsNFpFImEvrfzrJEZFV4YmAExvjk70CBzYKwFdhzx+UFfm31z8Ob11i09ZRtnwUTUPfK58+s3u3B5mPiAysMyPBWhdxiPzz8KdY2nZqkAGZ0Lr6uGuoMD6QXl1ZzpHFjDVhygTwvnVLbW43tqDbADPiHS6phoK4u9TCK8ke4MAYj8D8ySfb7u66gRnQLrHhLX8rh3E2uJZX/ynNDnx+VuA6IzFxiIB+ytrfV/3Fvk2GdSGE2HpMkZ9kCJ9o1Asmzqqm6huGbyDxuX7HytRSV2Ax6tA81T anysky130@163.com"
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/qklsUtUGrk1zWzihOfI5FUTKK7TIRWFV/sa3a7cH5fAFLlY8AGbBQRbybfXcQ+kT0KJqIq+IVAEbEf4JFgUQ3K3IIEfm6Patr3bMw/jpDWODHZJgXwC6hWOIjN94bmza9VuCFNDNLocuHiTSzpO0Iwv8X5xShjWCQSGqO4reUywLx9LIb1bBVAuqFdZybqiTP/hZ02BCk37Qfe01+t8ZUB5/Ita9mdDGTJNluKuORrdDEaCdMxMEeLIRgPV+jQwB2Q5qYiHwJeMPlhJflcI+PJz395baGMzNAO28X2E4X78ZA07BDxPFLih9EweyuQikcKFTpzTY2PthtY6yrmnN kevin@kevins-MacBook-Pro"

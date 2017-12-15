@@ -1,0 +1,21 @@
+[local]
+localhost
+[coreos-masters]
+core-01 pub_ip=222.2.1.199 priv_ip=172.12.8.101
+core-02 pub_ip=222.2.1.198 priv_ip=172.12.8.102
+core-03 pub_ip=222.2.1.197 priv_ip=172.12.8.103
+
+[coreos-workers]
+core-04 pub_ip=222.2.1.196 priv_ip=172.12.8.104
+core-05 pub_ip=222.2.1.195 priv_ip=172.12.8.105
+core-06 pub_ip=222.2.1.194 priv_ip=172.12.8.106
+
+[coreos-nodes:children]
+coreos-masters
+coreos-workers
+
+[coreos-nodes:vars]
+coreos_ansible_role_path="{{playbook_dir}}/roles"
+ansible_ssh_user=core
+ansible_python_interpreter="/opt/python/bin/python"
+priv_if=en0
