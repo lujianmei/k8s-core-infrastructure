@@ -1,15 +1,17 @@
+---
+
 #########################
 # ANSIBLE PREREQUISITES #
 #########################
 
 - name: coreos-ansible
-  hosts: localhost
+  hosts: local
   gather_facts: False
   tasks:
-    - include: roles/lu.coreos-ansible/tasks/ansible_prerequisites.yml
+    - include: "{{playbook_dir}}/roles/deimosfr.coreos-ansible/tasks/ansible_prerequisites.yml"
   vars:
     ansible_python_interpreter: "/usr/bin/python"
-    coreos_ansible_role_path: "{{playbook_dir}}/roles/lu.coreos-ansible"
+    coreos_ansible_role_path: "{{playbook_dir}}/roles/deimosfr.coreos-ansible"
 
 - name: coreos-ansible
   hosts: k8s-nodes
@@ -17,24 +19,24 @@
   become: yes
   gather_facts: False
   roles:
-    - lu.coreos-ansible
+    - deimosfr.coreos-ansible
   vars:
-    coreos_ansible_role_path: "{{playbook_dir}}/roles/lu.coreos-ansible"
+    coreos_ansible_role_path: "{{playbook_dir}}/roles/deimosfr.coreos-ansible"
 
 #######################
 # K8S SSL CERTIFICATS #
 #######################
 
 - name: kubernetes ssl
-  hosts: localhost
+  hosts: local
   gather_facts: False
   tasks:
-    - include: roles/lu.coreos-kubernetes/tasks/k8s_ssl_certs.yml
+    - include: "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/tasks/k8s_ssl_certs.yml"
   vars_files:
-    - inventory/staging/group_vars/core-kubernetes.yml
+    - "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/defaults/main.yml"
 
 ###############
-# K8S MASTERS #
+# COREOS MASTERS #
 ###############
 
 - name: check kubernetes etcd prerequisites and deploy kubernetes masters configs
@@ -42,12 +44,12 @@
   user: core
   become: yes
   tasks:
-    - include: roles/lu.coreos-kubernetes/tasks/k8s_etcd.yml
-    - include: roles/lu.coreos-kubernetes/tasks/k8s_master_nodes.yml
+    - include: "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/tasks/k8s_etcd.yml"
+    - include: "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/tasks/k8s_master_nodes.yml"
   handlers:
-    - include: roles/lu.coreos-kubernetes/handlers/main.yml
+    - include: "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/handlers/main.yml"
   vars_files:
-    - inventory/staging/group_vars/core-kubernetes.yml
+    - "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/defaults/main.yml"
   vars:
     k8s_restart_kubelet: true
 
@@ -57,9 +59,9 @@
   become: yes
   gather_facts: False
   tasks:
-    - include: roles/lu.coreos-kubernetes/tasks/k8s_namespaces.yml
+    - include: "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/tasks/k8s_namespaces.yml"
   vars_files:
-    - inventory/staging/group_vars/core-kubernetes.yml
+    - "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/defaults/main.yml"
 
 - name: validate pods are downloading or present
   hosts: k8s-masters
@@ -67,9 +69,9 @@
   become: yes
   gather_facts: False
   tasks:
-    - include: roles/lu.coreos-kubernetes/tasks/k8s_pods_checks.yml
+    - include: "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/tasks/k8s_pods_checks.yml"
   vars_files:
-    - inventory/staging/group_vars/core-kubernetes.yml
+    - "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/defaults/main.yml"
 
 ###############
 # K8S WORKERS #
@@ -80,11 +82,11 @@
   user: core
   become: yes
   tasks:
-    - include: roles/lu.coreos-kubernetes/tasks/k8s_workers_nodes.yml
+    - include: "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/tasks/k8s_workers_nodes.yml"
   handlers:
-    - include: roles/lu.coreos-kubernetes/handlers/main.yml
+    - include: "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/handlers/main.yml"
   vars_files:
-    - inventory/staging/group_vars/core-kubernetes.yml
+    - "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/defaults/main.yml"
   vars:
     k8s_restart_kubelet: true
 
@@ -98,9 +100,9 @@
   become: yes
   gather_facts: False
   tasks:
-    - include: roles/lu.coreos-kubernetes/tasks/k8s_kubectl_cfg.yml
+    - include: "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/tasks/k8s_kubectl_cfg.yml"
   vars_files:
-    - inventory/staging/group_vars/core-kubernetes.yml
+    - "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/defaults/main.yml"
 
 ######################
 # K8S 3RD PARTY APPS #
@@ -111,7 +113,7 @@
   user: core
   gather_facts: False
   tasks:
-    - include: roles/lu.coreos-kubernetes/tasks/k8s_dns_addon.yml
-    - include: roles/lu.coreos-kubernetes/tasks/k8s_dashboard.yml
+    - include: "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/tasks/k8s_dns_addon.yml"
+    - include: "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/tasks/k8s_dashboard.yml"
   vars_files:
-    - inventory/staging/group_vars/core-kubernetes.yml
+    - "{{playbook_dir}}/roles/deimosfr.coreos-kubernetes/defaults/main.yml"

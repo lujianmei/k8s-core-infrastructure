@@ -35,12 +35,14 @@ Or if you in MacOS, the script can not be ok, you need to change the ~copy_ssh_k
 ## Initial the python environment and startup coreos ##
 `
 cd k8s-core-infrastructure
-ansible-galaxy install -r requirements.yml
+ansible-galaxy install -r requirements.yml -p ./roles
 ansible-playbook -i inventory/staging/hosts bootstrap-coreos.yml -D
 `
 Which will initial all coreos servers
 Also, you will need to add all coreos virtual servers hostname and their ip address into you hosts file of current working environment.
 
 ## Initial kubernetes environment ##
-
-
+`
+ansible-playbook -i inventory/staging/hosts bootstrap-kubernetes.yml -D -e k8s_role_path="./roles/"
+`
+Run to install all kubernetes servers
