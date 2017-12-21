@@ -4,6 +4,7 @@
 coreos_channel: "stable"
 # Generate a token: https://discovery.etcd.io/new?size=3
 coreos_token: "2c9fb4b7458855ad411e169a9d5ed882"
+# coreos_token: "2e684361e633001d0dcde76ee7fdcacd"
 # coreos_token: "enter your token here"
 # Choose reboot strategy between: etcd-lock, reboot and off
 coreos_reboot_strategy: "off"
